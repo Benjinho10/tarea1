@@ -7,4 +7,4 @@ Integrantes:
 
 Profesor:
 
--Geoffrey Hecht
+- Geoffrey Hecht
