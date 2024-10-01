@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 
 class Deposito<T> {
+
     private ArrayList<T> items;
+
+    public ArrayList<T> getItems(){
+        return items;
+    }
 
     public Deposito() {
         items = new ArrayList<>();

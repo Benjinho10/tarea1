@@ -1,4 +1,4 @@
-class Producto{
+abstract class Producto{
 
     private int numSerie;
     private Precio precio;
@@ -12,11 +12,11 @@ class Producto{
         return numSerie;
     }
 
-    public int getPrecio(){
+    public Precio getPrecio(){
         return precio;
     }
 
-    public abstract String consumir();
+    abstract public String consumir();
 }
 
 enum Precio {

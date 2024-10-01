@@ -1,5 +1,5 @@
 class Comprador {
-    private String producto;
+    private String productoComprado;
     private int vuelto;
 
     public Comprador(Moneda m, int cualProducto, Expendedor exp) {
@@ -8,7 +8,7 @@ class Comprador {
 
         Producto producto = exp.comprarProducto(m, cualProducto);
 
-        if (bebida != null) {
+        if (producto != null) {
             this.productoComprado = producto.consumir();
         }
 
