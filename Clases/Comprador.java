@@ -1,13 +1,15 @@
 class Comprador {
-    private String bebida;
+    private String producto;
     private int vuelto;
 
-    public Comprador(Moneda m, int cualBebida, Expendedor exp) {
-        this.bebida = null;
+    public Comprador(Moneda m, int cualProducto, Expendedor exp) {
+        this.productoComprado = null;
         this.vuelto = 0;
-        Bebida bebida = exp.comprarBebida(m, cualBebida);
+
+        Producto producto = exp.comprarProducto(m, cualProducto);
+
         if (bebida != null) {
-            this.bebida = bebida.beber();
+            this.productoComprado = producto.consumir();
         }
 
         Moneda moneda;
@@ -19,7 +21,7 @@ class Comprador {
         return vuelto;
     }
 
-    public String queBebiste() {
-        return bebida;
+    public String queConsumiste() {
+        return productoComprado;
     }
 }
