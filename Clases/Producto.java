@@ -21,13 +21,17 @@ abstract class Producto{
 
 enum Precio {
     SPRITE(700), COCACOLA(800), FANTA(700), SUPER8(300), SNICKERS(1000);
-
+    private int numSerie;
     private int valor;
 
     Precio(int valor){
         this.valor = valor;
+
     }
 
+    public  int getSerie(){
+        return numSerie;
+    }
     public int getValor() {
         return valor;
     }
@@ -76,7 +80,7 @@ abstract class Dulce extends Producto{
     }
 }
 
-class Super8 extends Bebida {
+class Super8 extends Dulce {
     public Super8(int numSerie){
         super(numSerie, Precio.SUPER8);
     }
@@ -86,7 +90,7 @@ class Super8 extends Bebida {
     }
 }
 
-class Snickers extends Bebida {
+class Snickers extends Dulce {
     public Snickers (int numSerie){
         super(numSerie, Precio.SNICKERS);
     }
