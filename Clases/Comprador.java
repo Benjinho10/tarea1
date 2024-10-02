@@ -1,3 +1,7 @@
+import Monedas.Moneda;
+import Monedas.Moneda100;
+import Monedas.Moneda1000;
+import Monedas.Moneda500;
 class Comprador {
     private String productoComprado;
     private int vuelto;

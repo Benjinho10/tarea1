@@ -1,3 +1,7 @@
+import Monedas.Moneda;
+import Monedas.Moneda100;
+import Monedas.Moneda1000;
+import Monedas.Moneda500;
 abstract class Producto {
     private int numSerie;
     private Precio_Serie precio;

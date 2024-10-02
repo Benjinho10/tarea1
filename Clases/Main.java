@@ -1,6 +1,10 @@
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
+import Monedas.Moneda;
+import Monedas.Moneda100;
+import Monedas.Moneda1000;
+import Monedas.Moneda500;
 
 public class Main {
     public static void main(String[] args) {

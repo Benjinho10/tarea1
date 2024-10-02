@@ -1,4 +1,4 @@
-abstract class Moneda implements Comparable<Moneda> {
+/*abstract class Moneda implements Comparable<Moneda> {
 
     public Moneda(){}
     public Moneda getSerie() {
@@ -12,7 +12,6 @@ abstract class Moneda implements Comparable<Moneda> {
         return Integer.compare(this.getValor(), o.getValor());
     }
 }
-
 class Moneda1000 extends Moneda {
     public Moneda1000() {
         super();
@@ -44,4 +43,4 @@ class Moneda100 extends Moneda {
     public int getValor() {
         return 100;
     }
-}
+}*/
