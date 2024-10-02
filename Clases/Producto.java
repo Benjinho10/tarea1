@@ -1,4 +1,4 @@
-import Monedas.Moneda;
+/*import Monedas.Moneda;
 import Monedas.Moneda100;
 import Monedas.Moneda1000;
 import Monedas.Moneda500;
@@ -114,4 +114,4 @@ class Snickers extends Dulce {
     public String consumir() {
         return "snickers";
     }
-}
+}*/

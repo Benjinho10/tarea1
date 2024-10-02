@@ -2,6 +2,16 @@ import Monedas.Moneda;
 import Monedas.Moneda100;
 import Monedas.Moneda1000;
 import Monedas.Moneda500;
+import Productos.Producto;
+import Productos.Precio_Serie;
+import Productos.bebidas.Bebida;
+import Productos.bebidas.CocaCola;
+import Productos.bebidas.Sprite;
+import Productos.bebidas.Fanta;
+import Productos.dulces.Dulce;
+import Productos.dulces.Snickers;
+import Productos.dulces.Super8;
+
 class Comprador {
     private String productoComprado;
     private int vuelto;
