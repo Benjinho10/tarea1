@@ -1,7 +1,30 @@
+import java.util.Collection;
+import java.util.Collections;
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         // Inicializa el expendedor con 5 productos de cada tipo
         Expendedor exp = new Expendedor(5);
+
+        ArrayList<Moneda> monedas = new ArrayList<>();
+
+        monedas.add(new Moneda500());
+        monedas.add(new Moneda1000());
+        monedas.add(new Moneda500());
+        monedas.add(new Moneda100());
+
+        Collections.sort (monedas);
+
+        for(Moneda moneda : monedas){
+            System.out.println(moneda.getValor());
+        }
+
+        Collections.reverse(monedas);
+
+        for(Moneda moneda : monedas){
+            System.out.println(moneda.getValor());
+        }
 
         // Ejemplo 1: Comprar un Snickers con una moneda de 1000
         Moneda moneda1 = new Moneda1000();
@@ -29,9 +52,9 @@ public class Main {
         System.out.println("Comprador 5: " + comprador5.queConsumiste() + ", vuelto: $" + comprador5.cuantoVuelto());
 
         // Ejemplo 6: Comprar Sprite con varias monedas de 500 (hasta que se agoten)
-            Moneda moneda6 = new Moneda500();
-            Comprador comprador6 = new Comprador(moneda6, Expendedor.SPRITE, exp);
-            System.out.println("Comprador 6: " + comprador6.queConsumiste() + ", vuelto: $" + comprador6.cuantoVuelto());
+        Moneda moneda6 = new Moneda500();
+        Comprador comprador6 = new Comprador(moneda6, Expendedor.SPRITE, exp);
+        System.out.println("Comprador 6: " + comprador6.queConsumiste() + ", vuelto: $" + comprador6.cuantoVuelto());
 
         // Ejemplo 7: Intentar comprar CocaCola con una moneda de 100 (no suficiente)
         Moneda moneda7 = new Moneda100();
