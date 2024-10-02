@@ -14,11 +14,36 @@ class Expendedor {
         depositoMonedasVuelto = new Deposito<>();
 
         for (int i = 0; i < numProducto; i++) {
-            depositoProducto.add(new CocaCola(i));
-            depositoProducto.add(new Sprite(i));
-            depositoProducto.add(new Fanta(i));
-            depositoProducto.add(new Super8(i));
-            depositoProducto.add(new Snickers(i));
+            if (i < Precio_Serie.values().length){
+              switch (i){
+
+                  case 0:
+                      depositoProducto.add(new CocaCola());
+                      break;
+                  case 1:
+                      depositoProducto.add(new Sprite());
+                      break;
+                  case 2:
+                      depositoProducto.add(new Fanta());
+                      break;
+                  case 3:
+                      depositoProducto.add(new Super8());
+                      break;
+                  case 4:
+                      depositoProducto.add(new Snickers());
+                      break;
+                  default:
+                      break;
+              }
+
+
+            }
+
+            //depositoProducto.add(new CocaCola(i));
+            //depositoProducto.add(new Sprite(i));
+            //depositoProducto.add(new Fanta(i));
+            //depositoProducto.add(new Super8(i));
+            //depositoProducto.add(new Snickers(i));
         }
     }
 

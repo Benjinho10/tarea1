@@ -60,5 +60,16 @@ public class Main {
         Moneda moneda7 = new Moneda100();
         Comprador comprador7 = new Comprador(moneda7, Expendedor.COCA, exp);
         System.out.println("Comprador 7: " + comprador7.queConsumiste() + ", vuelto: $" + comprador7.cuantoVuelto());
+        Producto cocaCola = new CocaCola();
+        Producto sprite = new Sprite();
+        Producto fanta = new Fanta();
+        Producto super8 = new Super8();
+        Producto snickers = new Snickers();
+
+        System.out.println("CocaCola Serie: " + cocaCola.getSerie());
+        System.out.println("Sprite Serie: " + sprite.getSerie());
+        System.out.println("Fanta Serie: " + fanta.getSerie());
+        System.out.println("Super8 Serie: " + super8.getSerie());
+        System.out.println("Snickers Serie: " + snickers.getSerie());
     }
 }
