@@ -16,7 +16,7 @@ class Comprador {
     private String productoComprado;
     private int vuelto;
 
-    public Comprador(Moneda m, int cualProducto, Expendedor exp) {
+    public Comprador(Moneda m, int cualProducto, Expendedor exp) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
         this.productoComprado = null;
         this.vuelto = 0;
 

@@ -60,17 +60,15 @@ class Expendedor {
         }
     }
 
-    public Producto comprarProducto(Moneda m, int cual) {
+    public Producto comprarProducto(Moneda m, int cual) throws PagoIncorrectoException, NoHayProductoException, PagoInsuficienteException {
         if (m == null || cual < 1 || cual > 5) {
-            depositoMonedasVuelto.add(m);
-            return null;
+            throw new PagoIncorrectoException();
         }
 
         Producto producto = obtenerProducto(cual);
 
         if (producto == null) {
-            if (m != null) depositoMonedasVuelto.add(m);
-            return null;
+            throw new NoHayProductoException();
         }
 
         if (producto.getPrecio().getValor() <= m.getValor()) {
@@ -82,12 +80,11 @@ class Expendedor {
             return producto;
         }
         else {
-            depositoMonedasVuelto.add(m);
-            return null;
+            throw new PagoInsuficienteException();
         }
     }
 
-    private Producto obtenerProducto(int cual) {
+    private Producto obtenerProducto(int cual){
         for (Producto producto : depositoProducto.getItems()) {
             // Aquí se comparan los tipos de productos con las constantes
             if ((cual == COCA && producto instanceof CocaCola) ||
