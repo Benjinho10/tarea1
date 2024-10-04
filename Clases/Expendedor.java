@@ -10,25 +10,48 @@ import Productos.dulces.Super8;
 import Excepciones.PagoIncorrectoException;
 import Excepciones.NoHayProductoException;
 import Excepciones.PagoInsuficienteException;
+import java.util.HashMap;
+import java.util.Map;
 
 class Expendedor {
     private Deposito<Producto> depositoProducto;
     private Deposito<Moneda> depositoMonedasVuelto;
-    public int numProducto;
+    private Map<Integer, Integer> stock;
 
-    public Expendedor(int numProducto) {
-        this.numProducto = numProducto;
+    public Expendedor(int cantidadPorProducto) {
         depositoProducto = new Deposito<>();
         depositoMonedasVuelto = new Deposito<>();
+        stock = new HashMap<>(); // Inicializar el mapa de stock
 
-        for (int i = 0; i < numProducto; i++) {
-            depositoProducto.add(new CocaCola(i));
-            depositoProducto.add(new Sprite(i));
-            depositoProducto.add(new Fanta(i));
-            depositoProducto.add(new Super8(i));
-            depositoProducto.add(new Snickers(i));
+        // Añadir productos y stock inicial
+        for (int i = 0; i < cantidadPorProducto; i++) {
+            // Añade CocaCola
+            Producto cocaCola = new CocaCola(i);
+            depositoProducto.add(cocaCola);
+            stock.put(cocaCola.getPrecio().getNumSerie(), cantidadPorProducto);
+
+            // Añade Sprite
+            Producto sprite = new Sprite(i);
+            depositoProducto.add(sprite);
+            stock.put(sprite.getPrecio().getNumSerie(), cantidadPorProducto);
+
+            // Añade Fanta
+            Producto fanta = new Fanta(i);
+            depositoProducto.add(fanta);
+            stock.put(fanta.getPrecio().getNumSerie(), cantidadPorProducto);
+
+            // Añade Super8
+            Producto super8 = new Super8(i);
+            depositoProducto.add(super8);
+            stock.put(super8.getPrecio().getNumSerie(), cantidadPorProducto);
+
+            // Añade Snickers
+            Producto snickers = new Snickers(i);
+            depositoProducto.add(snickers);
+            stock.put(snickers.getPrecio().getNumSerie(), cantidadPorProducto);
         }
     }
+
 
     public Producto comprarProducto(int totalPagado, int numSerie) throws PagoIncorrectoException, NoHayProductoException, PagoInsuficienteException {
         if (totalPagado <= 0 || !esSerieValida(numSerie)) {
@@ -37,9 +60,8 @@ class Expendedor {
 
         Producto producto = obtenerProducto(numSerie);
 
-        if (producto == null) {
-            throw new NoHayProductoException();
-        }
+        if (producto == null || stock.get(numSerie) <= 0) {
+            throw new NoHayProductoException();        }
 
         if (producto.getPrecio().getValor() <= totalPagado) {
             int vuelto = totalPagado - producto.getPrecio().getValor();
@@ -47,6 +69,10 @@ class Expendedor {
                 depositoMonedasVuelto.add(new Moneda100());
                 vuelto -= 100;
             }
+
+
+            stock.put(numSerie, stock.get(numSerie) - 1);
+
             return producto;
         } else {
             throw new PagoInsuficienteException();
@@ -72,7 +98,6 @@ class Expendedor {
     }
 
     public Moneda getVuelto() {
-        return depositoMonedasVuelto.get();
+        return depositoMonedasVuelto.get(); // Retornar la moneda del vuelto
     }
 }
- 
