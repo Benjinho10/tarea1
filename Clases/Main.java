@@ -24,7 +24,7 @@ public class Main {
 
         Moneda moneda1 = new Moneda1000();
         Moneda moneda2 = new Moneda100();
-        Moneda moneda4 = new Moneda1000();
+        Moneda moneda4 = new Moneda500();
         Moneda moneda5 = new Moneda1000();
 
         // Caso 1: Comprar Fanta con moneda valida.
@@ -87,35 +87,29 @@ public class Main {
             System.out.println("El valor no es valido.");
         }
 
+        // Crear una lista para almacenar las monedas
         ArrayList<Moneda> monedas = new ArrayList<>();
 
-        monedas.add(moneda1);
-        monedas.add(moneda2);
-        monedas.add(moneda4);
-        monedas.add(moneda5);
+        // Agregar instancias de monedas a la lista
+        monedas.add(new Moneda100());
+        monedas.add(new Moneda500());
+        monedas.add(new Moneda1000());
+        monedas.add(new Moneda100());  // Agregamos otra moneda de 100 para ver cómo se ordena
 
-        Collections.sort(monedas);
-        System.out.println("Ordenamiento de monedas ocupadas de menor a mayor: ");
+        // Imprimir monedas antes de la ordenación
+        System.out.println("Monedas antes de la ordenación:");
         for (Moneda moneda : monedas) {
-            System.out.println(moneda.getValor());
+            System.out.println("Valor de la moneda: " + moneda.getValor());
+        }
+
+        // Ordenar las monedas usando el método compareTo
+        Collections.sort(monedas);
+
+        // Imprimir las monedas después de la ordenación
+        System.out.println("\nMonedas después de la ordenación:");
+        for (Moneda moneda : monedas) {
+            System.out.println("Valor de la moneda: " + moneda.getValor());
         }
     }
 }
 
-/*class NoHayProductoException extends Exception{
-    public NoHayProductoException(){
-        super();
-    }
-}
-
-class PagoInsuficienteException extends Exception{
-    public PagoInsuficienteException(){
-        super();
-    }
-}
-
-class PagoIncorrectoException extends Exception{
-    public PagoIncorrectoException(){
-        super();
-    }
-}*/
