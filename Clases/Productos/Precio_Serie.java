@@ -1,11 +1,11 @@
 package Productos;
 
 public enum Precio_Serie {
-    SPRITE(1000, 1),
-    COCACOLA(1000, 2),
-    FANTA(1000, 3),
-    SUPER8(500, 4),
-    SNICKERS(500, 5);
+    SPRITE(700, 1),
+    COCACOLA(800, 2),
+    FANTA(700, 3),
+    SUPER8(900, 4),
+    SNICKERS(1000, 5);
 
     private int valor;
     private int numSerie;

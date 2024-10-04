@@ -1,16 +1,6 @@
+import java.util.List;
 import Monedas.Moneda;
-import Monedas.Moneda100;
-import Monedas.Moneda1000;
-import Monedas.Moneda500;
 import Productos.Producto;
-import Productos.Precio_Serie;
-import Productos.bebidas.Bebida;
-import Productos.bebidas.CocaCola;
-import Productos.bebidas.Sprite;
-import Productos.bebidas.Fanta;
-import Productos.dulces.Dulce;
-import Productos.dulces.Snickers;
-import Productos.dulces.Super8;
 import Excepciones.PagoIncorrectoException;
 import Excepciones.NoHayProductoException;
 import Excepciones.PagoInsuficienteException;
@@ -19,12 +9,21 @@ class Comprador {
     private String productoComprado;
     private int vuelto;
 
-    public Comprador(Moneda m, int cualProducto, Expendedor exp) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
+    public Comprador(List<Moneda> monedas, int cualProducto, Expendedor exp) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
         this.productoComprado = null;
         this.vuelto = 0;
 
-        Producto producto = exp.comprarProducto(m, cualProducto);
+        // Validar monedas
+        if (monedas == null || monedas.isEmpty()) {
+            throw new PagoIncorrectoException();
+        }
 
+        // Calcular el valor total de las monedas
+        int totalPagado = 0;
+        for (Moneda moneda : monedas) {
+            totalPagado += moneda.getValor();
+        }
+        Producto producto = exp.comprarProducto(totalPagado, cualProducto);
         if (producto != null) {
             this.productoComprado = producto.consumir();
         }

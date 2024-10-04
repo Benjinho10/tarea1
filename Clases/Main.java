@@ -1,19 +1,11 @@
-import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.List;
 import Monedas.Moneda;
 import Monedas.Moneda100;
 import Monedas.Moneda1000;
 import Monedas.Moneda500;
-import Productos.Producto;
 import Productos.Precio_Serie;
-import Productos.bebidas.Bebida;
-import Productos.bebidas.CocaCola;
-import Productos.bebidas.Sprite;
-import Productos.bebidas.Fanta;
-import Productos.dulces.Dulce;
-import Productos.dulces.Snickers;
-import Productos.dulces.Super8;
 import Excepciones.PagoIncorrectoException;
 import Excepciones.NoHayProductoException;
 import Excepciones.PagoInsuficienteException;
@@ -28,7 +20,7 @@ public class Main {
         Moneda moneda5 = new Moneda1000();
 
         // Caso 1: Comprar Fanta con moneda valida.
-        try {
+       /* try {
             Comprador comprador1 = new Comprador(moneda1, 3, exp);
             System.out.println("Comprador 1: " + comprador1.queConsumiste() + ", vuelto: $" + comprador1.cuantoVuelto());
         } catch (PagoInsuficienteException e) {
@@ -85,7 +77,80 @@ public class Main {
             System.out.println("No hay producto disponible.");
         } catch (PagoIncorrectoException e) {
             System.out.println("El valor no es valido.");
+        }*/
+
+        System.out.println("Escenario 1: Monedas nulas ");
+        try {
+            List<Moneda> monedas0 = null; // Se mantiene como nula
+            // Intentar comprar Fanta (700) con monedas nulas
+            Comprador comprador1 = new Comprador(monedas0, Precio_Serie.FANTA.getNumSerie(), exp);
+        } catch (PagoIncorrectoException e) {
+            System.out.println("Error: Pago incorrecto. No se pueden usar monedas nulas.");
+        } catch (NoHayProductoException e) {
+            System.out.println("Error: Producto no disponible.");
+        } catch (PagoInsuficienteException e) {
+            System.out.println("Error: Pago insuficiente.");
         }
+
+        // 2. Intentar comprar un producto que cuesta 700 con menos de 700
+        System.out.println("\nEscenario 2: Pago insuficiente");
+        try {
+            // Definir monedas para comprar (2 monedas de 100)
+            List<Moneda> monedas1 = new ArrayList<>();
+            monedas1.add(new Moneda100()); // 100
+            monedas1.add(new Moneda100()); // 200
+            // Intentar comprar Fanta (700) con 200
+            Comprador comprador2 = new Comprador(monedas1, Precio_Serie.FANTA.getNumSerie(), exp);
+        } catch (PagoIncorrectoException e) {
+            System.out.println("Error: Pago incorrecto.");
+        } catch (NoHayProductoException e) {
+            System.out.println("Error: Producto no disponible.");
+        } catch (PagoInsuficienteException e) {
+            System.out.println("Error: Pago insuficiente. Se necesita más dinero.");
+        }
+
+        // 3. Comprar un producto que cuesta 700 con exactamente 700
+        System.out.println("\nEscenario 3: Pago exacto");
+        try {
+            // Definir monedas para comprar (1 moneda de 500 y 2 monedas de 100)
+            List<Moneda> monedas2 = new ArrayList<>();
+            monedas2.add(new Moneda500()); // 500
+            monedas2.add(new Moneda100()); // 600
+            monedas2.add(new Moneda100()); // 700
+            // Intentar comprar Fanta (700) con 700
+            Comprador comprador3 = new Comprador(monedas2, 3, exp);
+            // El método comprarProducto se invocará desde el constructor de Comprador
+            System.out.println("Compraste: " + comprador3.queConsumiste());
+            System.out.println("Vuelto: " + comprador3.cuantoVuelto());
+        } catch (PagoIncorrectoException e) {
+            System.out.println("Error: Pago incorrecto.");
+        } catch (NoHayProductoException e) {
+            System.out.println("Error: Producto no disponible.");
+        } catch (PagoInsuficienteException e) {
+            System.out.println("Error: Pago insuficiente.");
+        }
+
+        // 4. Comprar un producto que cuesta 700 con 1000
+        System.out.println("\nEscenario 4: Pago con exceso");
+        try {
+            // Definir monedas para comprar (1 moneda de 1000)
+            List<Moneda> monedas3 = new ArrayList<>();
+            monedas3.add(new Moneda1000());// 1000
+            monedas3.add(new Moneda100());
+            // Intentar comprar Fanta (700) con 1000
+            Comprador comprador4 = new Comprador(monedas3, 3, exp);
+            // El método comprarProducto se invocará desde el constructor de Comprador
+            System.out.println("Compraste: " + comprador4.queConsumiste());
+            System.out.println("Vuelto: " + comprador4.cuantoVuelto());
+        } catch (PagoIncorrectoException e) {
+            System.out.println("Error: Pago incorrecto.");
+        } catch (NoHayProductoException e) {
+            System.out.println("Error: Producto no disponible.");
+        } catch (PagoInsuficienteException e) {
+            System.out.println("Error: Pago insuficiente.");
+        }
+
+        System.out.println();
 
         // Crear una lista para almacenar las monedas
         ArrayList<Moneda> monedas = new ArrayList<>();

@@ -1,14 +1,10 @@
 import Monedas.Moneda;
 import Monedas.Moneda100;
-import Monedas.Moneda1000;
-import Monedas.Moneda500;
 import Productos.Producto;
 import Productos.Precio_Serie;
-import Productos.bebidas.Bebida;
 import Productos.bebidas.CocaCola;
 import Productos.bebidas.Sprite;
 import Productos.bebidas.Fanta;
-import Productos.dulces.Dulce;
 import Productos.dulces.Snickers;
 import Productos.dulces.Super8;
 import Excepciones.PagoIncorrectoException;
@@ -34,8 +30,8 @@ class Expendedor {
         }
     }
 
-    public Producto comprarProducto(Moneda m, int numSerie) throws PagoIncorrectoException, NoHayProductoException, PagoInsuficienteException {
-        if (m == null || !esSerieValida(numSerie)) {
+    public Producto comprarProducto(int totalPagado, int numSerie) throws PagoIncorrectoException, NoHayProductoException, PagoInsuficienteException {
+        if (totalPagado <= 0 || !esSerieValida(numSerie)) {
             throw new PagoIncorrectoException();
         }
 
@@ -45,37 +41,35 @@ class Expendedor {
             throw new NoHayProductoException();
         }
 
-        if (producto.getPrecio().getValor() <= m.getValor()) {
-            int vuelto = m.getValor() - producto.getPrecio().getValor();
+        if (producto.getPrecio().getValor() <= totalPagado) {
+            int vuelto = totalPagado - producto.getPrecio().getValor();
             while (vuelto >= 100) {
                 depositoMonedasVuelto.add(new Moneda100());
                 vuelto -= 100;
             }
             return producto;
-        }
-        else {
+        } else {
             throw new PagoInsuficienteException();
         }
     }
 
-    private boolean esSerieValida(int numSerie){
-        for(Precio_Serie precio : Precio_Serie.values()){
-            if(precio.getNumSerie() == numSerie){
+    private boolean esSerieValida(int numSerie) {
+        for (Precio_Serie precio : Precio_Serie.values()) {
+            if (precio.getNumSerie() == numSerie) {
                 return true;
             }
         }
         return false;
     }
 
-    private Producto obtenerProducto(int numSerie){
+    private Producto obtenerProducto(int numSerie) {
         for (Producto producto : depositoProducto.getItems()) {
-            if (producto.getPrecio().getNumSerie() == numSerie){
+            if (producto.getPrecio().getNumSerie() == numSerie) {
                 return producto;
             }
         }
         return null;
     }
-
 
     public Moneda getVuelto() {
         return depositoMonedasVuelto.get();
