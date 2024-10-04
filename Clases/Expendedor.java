@@ -15,11 +15,6 @@ class Expendedor {
     private Deposito<Producto> depositoProducto;
     private Deposito<Moneda> depositoMonedasVuelto;
     public int numProducto;
-    public static final int COCA = 1;
-    public static final int SPRITE = 2;
-    public static final int FANTA = 3;
-    public static final int SUPER8 = 4;
-    public static final int SNICKERS = 5;
 
     public Expendedor(int numProducto) {
         this.numProducto = numProducto;
@@ -27,45 +22,20 @@ class Expendedor {
         depositoMonedasVuelto = new Deposito<>();
 
         for (int i = 0; i < numProducto; i++) {
-            if (i < Precio_Serie.values().length){
-              switch (i){
-
-                  case 0:
-                      depositoProducto.add(new CocaCola());
-                      break;
-                  case 1:
-                      depositoProducto.add(new Sprite());
-                      break;
-                  case 2:
-                      depositoProducto.add(new Fanta());
-                      break;
-                  case 3:
-                      depositoProducto.add(new Super8());
-                      break;
-                  case 4:
-                      depositoProducto.add(new Snickers());
-                      break;
-                  default:
-                      break;
-              }
-
-
-            }
-
-            //depositoProducto.add(new CocaCola(i));
-            //depositoProducto.add(new Sprite(i));
-            //depositoProducto.add(new Fanta(i));
-            //depositoProducto.add(new Super8(i));
-            //depositoProducto.add(new Snickers(i));
+            depositoProducto.add(new CocaCola(i));
+            depositoProducto.add(new Sprite(i));
+            depositoProducto.add(new Fanta(i));
+            depositoProducto.add(new Super8(i));
+            depositoProducto.add(new Snickers(i));
         }
     }
 
-    public Producto comprarProducto(Moneda m, int cual) throws PagoIncorrectoException, NoHayProductoException, PagoInsuficienteException {
-        if (m == null || cual < 1 || cual > 5) {
+    public Producto comprarProducto(Moneda m, int numSerie) throws PagoIncorrectoException, NoHayProductoException, PagoInsuficienteException {
+        if (m == null || !esSerieValida(numSerie)) {
             throw new PagoIncorrectoException();
         }
 
-        Producto producto = obtenerProducto(cual);
+        Producto producto = obtenerProducto(numSerie);
 
         if (producto == null) {
             throw new NoHayProductoException();
@@ -84,14 +54,18 @@ class Expendedor {
         }
     }
 
-    private Producto obtenerProducto(int cual){
+    private boolean esSerieValida(int numSerie){
+        for(Precio_Serie precio : Precio_Serie.values()){
+            if(precio.getNumSerie() == numSerie){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Producto obtenerProducto(int numSerie){
         for (Producto producto : depositoProducto.getItems()) {
-            // Aquí se comparan los tipos de productos con las constantes
-            if ((cual == COCA && producto instanceof CocaCola) ||
-                    (cual == SPRITE && producto instanceof Sprite) ||
-                    (cual == FANTA && producto instanceof Fanta) ||
-                    (cual == SUPER8 && producto instanceof Super8) ||
-                    (cual == SNICKERS && producto instanceof Snickers)) {
+            if (producto.getPrecio().getNumSerie() == numSerie){
                 return producto;
             }
         }

@@ -4,7 +4,7 @@ package Productos.dulces;
 import Productos.Precio_Serie;
 
 public class Super8 extends Dulce {
-    public Super8() {
+    public Super8(int i) {
         super(Precio_Serie.SUPER8.getNumSerie(), Precio_Serie.SUPER8);
     }
 
