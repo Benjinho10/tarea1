@@ -12,12 +12,24 @@ import Excepciones.NoHayProductoException;
 import Excepciones.PagoInsuficienteException;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Clase que representa el expendedor de productos.
+ *
+ * El expendedor contiene un depósito de productos y un depósito de monedas para el vuelto.
+ * Permite comprar productos y calcular el vuelto correspondiente.
+ *
+ * @author Benjamin
+ * @author Joaquin
+ */
 class Expendedor {
     private Deposito<Producto> depositoProducto;
     private Deposito<Moneda> depositoMonedasVuelto;
     private Map<Integer, Integer> stock;
-
+    /**
+     * Constructor que crea el expendedor con una cantidad específica dada de cada producto.
+     *
+     * @param cantidadPorProducto La cantidad inicial de cada producto en el expendedor.
+     */
     public Expendedor(int cantidadPorProducto) {
         depositoProducto = new Deposito<>();
         depositoMonedasVuelto = new Deposito<>();
@@ -52,25 +64,35 @@ class Expendedor {
         }
     }
 
-
+    /**
+     * Método que permite comprar un producto en el expendedor.
+     *
+     * @param totalPagado El pago total del comprador.
+     * @param numSerie El número de serie del producto que se quiere comprar.
+     * @return El producto comprado si la transacción es valida.
+     * @throws PagoIncorrectoException Si el monto pagado es incorrecto o la serie del producto es inválida.
+     * @throws NoHayProductoException Si no hay stock del producto solicitado.
+     * @throws PagoInsuficienteException Si el pago es insuficiente para comprar el producto.
+     */
     public Producto comprarProducto(int totalPagado, int numSerie) throws PagoIncorrectoException, NoHayProductoException, PagoInsuficienteException {
         if (totalPagado <= 0 || !esSerieValida(numSerie)) {
             throw new PagoIncorrectoException();
         }
 
         Producto producto = obtenerProducto(numSerie);
-
+        // Verifica si el producto existe y si aún queda stock disponible.
         if (producto == null || stock.get(numSerie) <= 0) {
             throw new NoHayProductoException();        }
-
+        // Verifica si el pago es suficiente para el precio del producto.
         if (producto.getPrecio().getValor() <= totalPagado) {
             int vuelto = totalPagado - producto.getPrecio().getValor();
+            // Mientras el vuelto sea suficiente para devolver monedas de 100, se añaden al depósito de vuelto.
             while (vuelto >= 100) {
                 depositoMonedasVuelto.add(new Moneda100());
                 vuelto -= 100;
             }
 
-
+        // Se actualiza el stock del producto
             stock.put(numSerie, stock.get(numSerie) - 1);
 
             return producto;
@@ -78,7 +100,12 @@ class Expendedor {
             throw new PagoInsuficienteException();
         }
     }
-
+    /**
+     * Método auxiliar para verificar si un número de serie es válido.
+     *
+     * @param numSerie El número de serie del producto.
+     * @return true si el número de serie es válido, false en caso contrario.
+     */
     private boolean esSerieValida(int numSerie) {
         for (Precio_Serie precio : Precio_Serie.values()) {
             if (precio.getNumSerie() == numSerie) {
@@ -87,7 +114,12 @@ class Expendedor {
         }
         return false;
     }
-
+    /**
+     * Método auxiliar para obtener un producto con un número de serie específico.
+     *
+     * @param numSerie El número de serie del producto.
+     * @return El producto correspondiente si existe o null en caso contrario.
+     */
     private Producto obtenerProducto(int numSerie) {
         for (Producto producto : depositoProducto.getItems()) {
             if (producto.getPrecio().getNumSerie() == numSerie) {
@@ -96,7 +128,11 @@ class Expendedor {
         }
         return null;
     }
-
+    /**
+     * Método que devuelve una moneda del depósito de vuelto.
+     *
+     * @return Una moneda del depósito de vuelto o null si no hay monedas.
+     */
     public Moneda getVuelto() {
         return depositoMonedasVuelto.get(); // Retornar la moneda del vuelto
     }

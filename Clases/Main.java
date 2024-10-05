@@ -9,10 +9,23 @@ import Productos.Precio_Serie;
 import Excepciones.PagoIncorrectoException;
 import Excepciones.NoHayProductoException;
 import Excepciones.PagoInsuficienteException;
-
+/**
+ * Clase principal que contiene el método main para probar el funcionamiento del expendedor de productos.
+ *
+ * @author Benjamin
+ * @author Joaquin
+ */
 public class Main {
+    /**
+     * Método principal que ejecuta diferentes ejemplos de compra en el expendedor.
+     *
+     * @param args Argumentos de línea de comandos.
+     */
     public static void main(String[] args) {
+        //Inicializa el expendedor con un valor cualquiera.
         Expendedor exp = new Expendedor(5);
+
+        // Pruebas con distintos escenarios:
 
         System.out.println("Escenario 1: Monedas nulas ");
         try {
